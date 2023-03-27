@@ -1,6 +1,6 @@
 package pages;
-
 import config.Urls;
+import elements.CarCardElementHelper;
 import helpers.XpathGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -36,13 +36,22 @@ public class MainPage extends BasePage {
 
     public void allCarsOnThePageShouldNotBeSold() {
         for (WebElement carCard : carCardElements) {
-            Assertions.assertFalse(isCarSold(carCard));
+            Assertions.assertFalse(isCarSold(new CarCardElementHelper(carCard)));
         }
     }
 
-    private Boolean isCarSold(WebElement carCardElement) {
+    public void findDesc() {
+        for (WebElement carCard : carCardElements) {
+            CarCardElementHelper carCardElementHelper = new CarCardElementHelper(carCard);
+            System.out.println(carCardElementHelper.getCardDescriptionElement(CarCardElementHelper.CarCardData.VOLUME).getText());
+        }
+    }
+
+
+    private Boolean isCarSold(CarCardElementHelper carCardElementHelper) {
         String[] cssValues;
-        String cssValue = carCardElement.getCssValue("text-decoration");
+        WebElement titleElement = carCardElementHelper.getCardTitleElement();
+        String cssValue = titleElement.getCssValue("text-decoration");
         cssValues = cssValue.split(" ");
 
         if (Objects.equals(cssValues[0], "line-through")) {
@@ -51,13 +60,11 @@ public class MainPage extends BasePage {
 
         return Boolean.FALSE;
     }
-    
+
 
     public void changePaginationPage(String numberPage) {
         String pageXpath = XpathGenerator.createXpath(DynamicMainPageSelectors.PAGINATION_PAGE_SELECTOR_RAW, numberPage);
-        System.out.println(pageXpath);
         WebElement paginationPage = driver.findElement(By.xpath(pageXpath));
         paginationPage.click();
     }
-
 }
