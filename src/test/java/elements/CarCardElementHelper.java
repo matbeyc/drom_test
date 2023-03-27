@@ -1,5 +1,6 @@
 package elements;
 
+import com.fasterxml.jackson.databind.JsonSerializer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -23,24 +24,15 @@ public class CarCardElementHelper {
         this.baseElement = baseElement;
     }
 
-    public WebElement getCardElement() {
-        return this.baseElement.findElement(By.xpath("//span[@data-ftid=\"bull_title\"]"));
-    }
 
     public WebElement getCardTitleElement() {
 
-        return this.baseElement.findElement(By.xpath("//span[@data-ftid=\"bull_title\"]"));
+        return this.baseElement.findElement(By.xpath(".//span[@data-ftid=\"bull_title\"]"));
     }
 
-    public WebElement getCardDescriptionElement(Integer descriptionVariant) {
-
-        List<WebElement> listOfElements = this.baseElement.findElements(By.xpath("//span[@data-ftid=\"bull_description-item\"]"));
-        return listOfElements.get(descriptionVariant);
-
-    }
-
-    public WebElement getCardIsMileage() {
-        return this.baseElement.findElement(By.xpath("//div[contains(text(),'без пробега по рф')]"));
+    public WebElement getCardDescriptionVolumeElement(Integer descriptionVariant) {
+            List<WebElement> listOfElements = this.baseElement.findElements(By.xpath(".//span[@data-ftid=\"bull_description-item\"]"));
+            return listOfElements.get(descriptionVariant);
     }
 
 

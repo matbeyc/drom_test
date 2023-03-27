@@ -1,4 +1,5 @@
 package pages;
+
 import config.Urls;
 import elements.CarCardElementHelper;
 import helpers.XpathGenerator;
@@ -11,6 +12,8 @@ import org.openqa.selenium.support.PageFactory;
 import resources.Selectors.ConstantMainPageSelectors;
 import resources.Selectors.DynamicMainPageSelectors;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,7 +34,7 @@ public class MainPage extends BasePage {
     }
 
     public void openWithFilter(String additionalParams) {
-        driver.get(Urls.AUTO_MAIN_PAGE + additionalParams);
+        driver.get("https://auto.drom.ru/all/?maxprobeg=1");
     }
 
     public void allCarsOnThePageShouldNotBeSold() {
@@ -40,13 +43,38 @@ public class MainPage extends BasePage {
         }
     }
 
-    public void findDesc() {
+    public void allCarsShouldHaveMileage() {
         for (WebElement carCard : carCardElements) {
-            CarCardElementHelper carCardElementHelper = new CarCardElementHelper(carCard);
-            System.out.println(carCardElementHelper.getCardDescriptionElement(CarCardElementHelper.CarCardData.VOLUME).getText());
+            String mileage = getCardDescription(new CarCardElementHelper(carCard)).get("mileage");
+            Assertions.assertNotNull(mileage);
         }
     }
 
+    public void allCarsShouldBeLessThanYear(String minYear) {
+        for (WebElement carCard : carCardElements) {
+            String carYear = getCarYear(new CarCardElementHelper(carCard));
+            System.out.println(carYear);
+        }
+    }
+
+    private String getCarYear(CarCardElementHelper carCardElementHelper) {
+        WebElement cardTitleElement = carCardElementHelper.getCardTitleElement();
+        String cardTitleValue = cardTitleElement.getText();
+        String[] helperList = cardTitleValue.split(", ");
+        return helperList[1];
+    }
+
+    public void findDesc() {
+
+    }
+
+    private HashMap<String, String> getCardDescription(CarCardElementHelper carCardElementHelper) {
+        HashMap<String, String> description = new HashMap<>();
+        description.put("mileage", carCardElementHelper.getCardDescriptionElement(CarCardElementHelper.CarCardData.Mileage).getText());
+        description.put("volume", carCardElementHelper.getCardDescriptionElement(CarCardElementHelper.CarCardData.VOLUME).getText());
+        description.put("fuel", carCardElementHelper.getCardDescriptionElement(CarCardElementHelper.CarCardData.FUEL).getText());
+        return description;
+    }
 
     private Boolean isCarSold(CarCardElementHelper carCardElementHelper) {
         String[] cssValues;

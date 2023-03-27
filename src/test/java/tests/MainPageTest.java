@@ -24,7 +24,7 @@ public class MainPageTest extends BaseTest {
         MainPage mainPage = new MainPage();
         mainPage.openWithFilter(carsFilterUrlParams.getParams());
         mainPage.allCarsOnThePageShouldNotBeSold();
-        mainPage.allCarsOnThePageShouldNotBeSold();
-        mainPage.findDesc();
+        mainPage.allCarsShouldHaveMileage();
+
     }
 }
