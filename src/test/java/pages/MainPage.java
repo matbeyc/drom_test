@@ -10,21 +10,23 @@ import org.openqa.selenium.support.PageFactory;
 import selectors.MainPageSelectors.ConstantMainPageSelectors;
 import selectors.MainPageSelectors.DynamicMainPageSelectors;
 
+import java.lang.module.Configuration;
 import java.util.List;
 
 public class MainPage extends BasePage {
-
+    String baseUrl = Urls.AUTO_MAIN_PAGE;
 
     public MainPage() {
+
         PageFactory.initElements(driver, this);
     }
 
     public void open() {
-        driver.get(Urls.AUTO_MAIN_PAGE);
+        driver.get(this.baseUrl);
     }
 
     public void openWithFilter(String additionalParams) {
-        driver.get("https://auto.drom.ru/toyota/camry/?maxprobeg=1");
+        driver.get(this.baseUrl + additionalParams);
     }
 
 
@@ -33,6 +35,22 @@ public class MainPage extends BasePage {
         for (WebElement carCard : carCardElements) {
             Boolean isCarSold = new CarCard(carCard).isCarSold();
             Assertions.assertFalse(isCarSold);
+        }
+    }
+
+    public void allCarsShouldBeMoreThan(Integer minYear) {
+        List<WebElement> carCardElements = driver.findElements(ConstantMainPageSelectors.CAR_CARD_SELECTOR);
+        for (WebElement carCard : carCardElements) {
+            Integer carYear = new CarCard(carCard).getCarYear();
+            Assertions.assertTrue(carYear > minYear);
+        }
+    }
+
+    public void allCarsShouldHaveMileage() {
+        List<WebElement> carCardElements = driver.findElements(ConstantMainPageSelectors.CAR_CARD_SELECTOR);
+        for (WebElement carCard : carCardElements) {
+            String mileage = new CarCard(carCard).getMileage();
+            Assertions.assertNotNull(mileage);
         }
     }
 

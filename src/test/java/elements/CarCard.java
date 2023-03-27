@@ -3,6 +3,7 @@ package elements;
 import org.openqa.selenium.WebElement;
 import selectors.CarCardSelectors.ConstantCarCardSelectors;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -17,8 +18,8 @@ public class CarCard {
 
     public Boolean isCarSold() {
         String[] cssValues;
-        WebElement carCardTitle = baseElement.findElement(ConstantCarCardSelectors.TITLE_GENERAL_SELECTOR);
-        String cssValue = carCardTitle.getCssValue("text-decoration");
+        WebElement carCardTitleElement = baseElement.findElement(ConstantCarCardSelectors.TITLE_GENERAL_SELECTOR);
+        String cssValue = carCardTitleElement.getCssValue("text-decoration");
         cssValues = cssValue.split(" ");
         if (Objects.equals(cssValues[0], "line-through")) {
             return Boolean.TRUE;
@@ -26,5 +27,18 @@ public class CarCard {
         return Boolean.FALSE;
     }
 
+    public String getMileage() {
+        List<WebElement> mileageElements = baseElement.findElements(ConstantCarCardSelectors.MILEAGE_SELECTOR);
+        if (!mileageElements.isEmpty()) {
+            return mileageElements.get(0).getText();
+        }
+        return null;
+    }
+
+    public Integer getCarYear() {
+        String titleText = baseElement.findElement(ConstantCarCardSelectors.TITLE_TEXT_SELECTOR).getText();
+        String[] titleList = titleText.split(", ");
+        return Integer.parseInt(titleList[1]);
+    }
 
 }

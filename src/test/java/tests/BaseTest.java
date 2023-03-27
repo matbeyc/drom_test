@@ -1,4 +1,5 @@
 package tests;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,9 +23,8 @@ abstract public class BaseTest {
         options.addArguments("--remote-allow-origins=*");
         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
         driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         BasePage.setDriver(driver);
     }
 
