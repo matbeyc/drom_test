@@ -2,6 +2,7 @@ package pages;
 
 import config.Urls;
 import elements.CarCard;
+import elements.Header;
 import helpers.XpathGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -10,7 +11,6 @@ import org.openqa.selenium.support.PageFactory;
 import selectors.MainPageSelectors.ConstantMainPageSelectors;
 import selectors.MainPageSelectors.DynamicMainPageSelectors;
 
-import java.lang.module.Configuration;
 import java.util.List;
 
 public class MainPage extends BasePage {
@@ -19,6 +19,7 @@ public class MainPage extends BasePage {
     public MainPage() {
 
         PageFactory.initElements(driver, this);
+
     }
 
     public void open() {
@@ -27,6 +28,11 @@ public class MainPage extends BasePage {
 
     public void openWithFilter(String additionalParams) {
         driver.get(this.baseUrl + additionalParams);
+    }
+
+    public Header getHeaderElement() {
+        WebElement headerElement = driver.findElement(ConstantMainPageSelectors.HEADER_SELECTOR);
+        return new Header(headerElement);
     }
 
 
@@ -38,11 +44,11 @@ public class MainPage extends BasePage {
         }
     }
 
-    public void allCarsShouldBeMoreThan(Integer minYear) {
+    public void allCarsShouldBeMoreOrEqualThan(Integer minYear) {
         List<WebElement> carCardElements = driver.findElements(ConstantMainPageSelectors.CAR_CARD_SELECTOR);
         for (WebElement carCard : carCardElements) {
             Integer carYear = new CarCard(carCard).getCarYear();
-            Assertions.assertTrue(carYear > minYear);
+            Assertions.assertTrue(carYear >= minYear);
         }
     }
 

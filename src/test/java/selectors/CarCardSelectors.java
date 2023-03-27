@@ -3,9 +3,9 @@ package selectors;
 import org.openqa.selenium.By;
 
 public class CarCardSelectors {
-    public static By ConstantMainPageSelectors;
 
-    public static class ConstantCarCardSelectors {
+
+    public static class ConstantCarCardElementSelectors {
         public final static By TITLE_GENERAL_SELECTOR = By.xpath(".//span[@data-ftid=\"bull_title\"]/parent::div");
         public final static By TITLE_TEXT_SELECTOR = By.xpath(".//span[@data-ftid=\"bull_title\"]");
         public final static By VOLUME_SELECTOR = By.xpath(".//span[@data-ftid=\"bull_description-item\"]/following-sibling::span[0]");
@@ -16,7 +16,7 @@ public class CarCardSelectors {
 
     }
 
-    public static class DynamicCarCardSelectors {
+    public static class DynamicCarCardElementSelectors {
 
     }
 }

@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 public class MainPageSelectors {
     public static class ConstantMainPageSelectors {
         public static final By CAR_CARD_SELECTOR = By.xpath("//a[@data-ftid=\"bulls-list_bull\"]");
+        public static final By HEADER_SELECTOR = By.xpath("//div[@data-ftid=\"component_header\"]");
 
     }
 

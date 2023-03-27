@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import pages.MainPage;
 
 
-public class MainPageTest extends BaseTest {
+public class FilterTest extends BaseTest {
 
     @Test
     public void openMainPage() {
@@ -24,8 +24,8 @@ public class MainPageTest extends BaseTest {
         MainPage mainPage = new MainPage();
         mainPage.openWithFilter(carsFilterUrlParams.getParams());
         mainPage.allCarsShouldNotBeSold();
-        mainPage.allCarsShouldBeMoreThan(2006);
+        mainPage.allCarsShouldBeMoreOrEqualThan(2007);
         mainPage.allCarsShouldHaveMileage();
-
+        mainPage.changePaginationPage("2");
     }
 }
