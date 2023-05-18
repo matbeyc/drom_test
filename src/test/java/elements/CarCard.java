@@ -1,11 +1,16 @@
 package elements;
+
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import pages.BasePage;
 import selectors.CarCardSelectors.ConstantCarCardElementSelectors;
+
+import javax.swing.text.StyledEditorKit;
 import java.util.List;
 import java.util.Objects;
 
 
-public class CarCard {
+public class CarCard extends BasePage {
     WebElement baseElement;
 
 
@@ -13,6 +18,18 @@ public class CarCard {
         this.baseElement = carCardElement;
     }
 
+
+    public void addCarToFavorite() {
+        baseElement.findElement(ConstantCarCardElementSelectors.ADD_TO_FAVORITE_BUTTON_SELECTOR).click();
+    }
+
+    public Boolean isCarInFavorite() {
+        List<WebElement> mileageElements = baseElement.findElements(ConstantCarCardElementSelectors.ADD_TO_FAVORITE_BUTTON_SELECTOR);
+        if (!mileageElements.isEmpty()) {
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
+    }
 
     public Boolean isCarSold() {
         String[] cssValues;
@@ -38,5 +55,6 @@ public class CarCard {
         String[] titleList = titleText.split(", ");
         return Integer.parseInt(titleList[1]);
     }
+
 
 }

@@ -1,63 +1,96 @@
 package pages;
 
-import config.Urls;
+import config.ReadConfig;
 import elements.CarCard;
 import elements.Header;
 import helpers.XpathGenerator;
+import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import selectors.CarCardSelectors;
+import selectors.MainPageSelectors;
 import selectors.MainPageSelectors.ConstantMainPageSelectors;
 import selectors.MainPageSelectors.DynamicMainPageSelectors;
 
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MainPage extends BasePage {
-    String baseUrl = Urls.AUTO_MAIN_PAGE;
+    private final static String baseUrl = ReadConfig.getBaseUrl();
 
-    public MainPage() {
 
-        PageFactory.initElements(driver, this);
-
-    }
-
-    public void open() {
-        driver.get(this.baseUrl);
-    }
-
-    public void openWithFilter(String additionalParams) {
-        driver.get(this.baseUrl + additionalParams);
-    }
+    private final Header headerElement = new Header();
 
     public Header getHeaderElement() {
-        WebElement headerElement = driver.findElement(ConstantMainPageSelectors.HEADER_SELECTOR);
-        return new Header(headerElement);
+        return headerElement;
+    }
+
+
+    public void open() {
+        driver.get(baseUrl);
+    }
+
+
+    public void openWithFilter(String additionalParams) {
+        driver.get(baseUrl + additionalParams);
     }
 
 
     public void allCarsShouldNotBeSold() {
-        List<WebElement> carCardElements = driver.findElements(ConstantMainPageSelectors.CAR_CARD_SELECTOR);
-        for (WebElement carCard : carCardElements) {
+        for (WebElement carCard : getAllCarCardsFromThePage()) {
             Boolean isCarSold = new CarCard(carCard).isCarSold();
             Assertions.assertFalse(isCarSold);
         }
     }
 
     public void allCarsShouldBeMoreOrEqualThan(Integer minYear) {
-        List<WebElement> carCardElements = driver.findElements(ConstantMainPageSelectors.CAR_CARD_SELECTOR);
-        for (WebElement carCard : carCardElements) {
+        for (WebElement carCard : getAllCarCardsFromThePage()) {
             Integer carYear = new CarCard(carCard).getCarYear();
             Assertions.assertTrue(carYear >= minYear);
         }
     }
 
     public void allCarsShouldHaveMileage() {
-        List<WebElement> carCardElements = driver.findElements(ConstantMainPageSelectors.CAR_CARD_SELECTOR);
-        for (WebElement carCard : carCardElements) {
+        for (WebElement carCard : getAllCarCardsFromThePage()) {
             String mileage = new CarCard(carCard).getMileage();
             Assertions.assertNotNull(mileage);
         }
+    }
+
+    public void addToFavoriteRandomCar() {
+        Random random = new Random();
+        List<CarCard> nonFavoriteCars = getNonFavoriteCarsFromThePage();
+        int randomCardNumber = random.nextInt(nonFavoriteCars.size());
+        nonFavoriteCars.get(randomCardNumber).addCarToFavorite();
+    }
+
+    private List<CarCard> getNonFavoriteCarsFromThePage() {
+        List<CarCard> nonFavoriteCars = new ArrayList<>();
+        List<WebElement> allCardsFromThePage = getAllCarCardsFromThePage();
+        for (WebElement carCardElement : allCardsFromThePage) {
+            CarCard carCard = new CarCard(carCardElement);
+            if (!carCard.isCarInFavorite()) {
+                nonFavoriteCars.add(carCard);
+            }
+        }
+        System.out.println("getNonFavoriteCarsFromThePage");
+        System.out.println(nonFavoriteCars.size());
+        return nonFavoriteCars;
+    }
+
+
+    private List<WebElement> getAllCarCardsFromThePage() {
+        List<WebElement> carCardElements = new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(ConstantMainPageSelectors.CAR_CARD_SELECTOR));
+        System.out.println("getAllCarCardsFromThePage");
+        System.out.println(carCardElements.size());
+        return carCardElements;
     }
 
 

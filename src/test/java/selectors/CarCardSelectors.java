@@ -6,6 +6,7 @@ public class CarCardSelectors {
 
 
     public static class ConstantCarCardElementSelectors {
+        public final static By ADD_TO_FAVORITE_BUTTON_SELECTOR = By.className("css-1rozdag");
         public final static By TITLE_GENERAL_SELECTOR = By.xpath(".//span[@data-ftid=\"bull_title\"]/parent::div");
         public final static By TITLE_TEXT_SELECTOR = By.xpath(".//span[@data-ftid=\"bull_title\"]");
         public final static By VOLUME_SELECTOR = By.xpath(".//span[@data-ftid=\"bull_description-item\"]/following-sibling::span[0]");

@@ -17,13 +17,13 @@ abstract public class BaseTest {
     @BeforeEach
     public void setUp() {
         System.setProperty("webdriver.http.factory", "jdk-http-client");
-        WebDriverManager.chromedriver().driverVersion("110.0.5481").setup();
-        driver = new ChromeDriver();
+        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         BasePage.setDriver(driver);
     }

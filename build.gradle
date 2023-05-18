@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id'io.qameta.allure' version '2.11.2'
 }
 
 group 'org.example'
@@ -16,8 +17,15 @@ dependencies {
     implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.3.2'
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-http-jdk-client', version: '4.5.0'
     implementation group: 'com.typesafe', name: 'config', version: '1.4.2'
+    implementation 'com.typesafe:config:1.4.2'
+    implementation group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.21.0'
+    testImplementation group: 'io.qameta.allure', name: 'allure-junit5', version: '2.21.0'
+    implementation group: 'io.qameta.allure', name: 'allure-rest-assured', version: '2.21.0'
+    runtimeOnly group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.19'
+    implementation group: 'io.qameta.allure', name: 'allure-commandline', version: '2.21.0', ext: 'pom'
 }
 
 test {
+    systemProperty 'env', project.hasProperty('env') ? project.env : 'prod'
     useJUnitPlatform()
 }

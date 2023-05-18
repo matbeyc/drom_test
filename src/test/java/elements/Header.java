@@ -1,17 +1,16 @@
 package elements;
 
 import org.openqa.selenium.WebElement;
+import pages.BasePage;
 import selectors.HeaderSelectors.ConstantHeaderElementSelectors;
 
-public class Header {
+public class Header extends BasePage {
     WebElement baseElement;
 
-    public Header(WebElement headerElement) {
-        this.baseElement = headerElement;
-    }
 
     public void goToAuthPage() {
-        this.baseElement.findElement(ConstantHeaderElementSelectors.AUTH_AND_REGISTRATION_BUTTON).click();
+        WebElement headerElement = driver.findElement(ConstantHeaderElementSelectors.AUTH_AND_REGISTRATION_BUTTON);
+        headerElement.click();
     }
 
 }
