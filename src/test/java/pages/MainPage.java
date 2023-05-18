@@ -43,54 +43,61 @@ public class MainPage extends BasePage {
 
 
     public void allCarsShouldNotBeSold() {
-        for (WebElement carCard : getAllCarCardsFromThePage()) {
+        List<WebElement> allCarCards = getAllCarCardsFromThePage();
+        for (WebElement carCard : allCarCards) {
             Boolean isCarSold = new CarCard(carCard).isCarSold();
             Assertions.assertFalse(isCarSold);
         }
     }
 
     public void allCarsShouldBeMoreOrEqualThan(Integer minYear) {
-        for (WebElement carCard : getAllCarCardsFromThePage()) {
+        List<WebElement> allCarCards = getAllCarCardsFromThePage();
+        for (WebElement carCard : allCarCards) {
             Integer carYear = new CarCard(carCard).getCarYear();
             Assertions.assertTrue(carYear >= minYear);
         }
     }
 
     public void allCarsShouldHaveMileage() {
-        for (WebElement carCard : getAllCarCardsFromThePage()) {
+        List<WebElement> allCarCards = getAllCarCardsFromThePage();
+        for (WebElement carCard : allCarCards) {
             String mileage = new CarCard(carCard).getMileage();
             Assertions.assertNotNull(mileage);
         }
     }
 
-    public void addToFavoriteRandomCar() {
-        Random random = new Random();
-        List<CarCard> nonFavoriteCars = getNonFavoriteCarsFromThePage();
-        int randomCardNumber = random.nextInt(nonFavoriteCars.size());
-        nonFavoriteCars.get(randomCardNumber).addCarToFavorite();
-    }
-
-    private List<CarCard> getNonFavoriteCarsFromThePage() {
-        List<CarCard> nonFavoriteCars = new ArrayList<>();
-        List<WebElement> allCardsFromThePage = getAllCarCardsFromThePage();
-        for (WebElement carCardElement : allCardsFromThePage) {
-            CarCard carCard = new CarCard(carCardElement);
-            if (!carCard.isCarInFavorite()) {
-                nonFavoriteCars.add(carCard);
-            }
-        }
-        System.out.println("getNonFavoriteCarsFromThePage");
-        System.out.println(nonFavoriteCars.size());
-        return nonFavoriteCars;
-    }
-
 
     private List<WebElement> getAllCarCardsFromThePage() {
-        List<WebElement> carCardElements = new WebDriverWait(driver, Duration.ofSeconds(5))
+        return new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(ConstantMainPageSelectors.CAR_CARD_SELECTOR));
-        System.out.println("getAllCarCardsFromThePage");
-        System.out.println(carCardElements.size());
-        return carCardElements;
+    }
+
+    public void addToFavoriteRandomCar(){
+        Actions actions = new Actions(driver);
+        WebElement car = getRandomNonFavoriteCar();
+        // Не нашел, к сожалению, других вариантов, как обойтись без костыля. Так-как всегда
+        // кликает слишком рано и по итогу не добавляет в избранное, а переходит на карточку автомобиля.
+        // Явные ожидания тоже не помогли. Еще как вариант переходить на карточку после клика на
+        // иконку "добавить в избранное" и добавлять в избранное уже на самой странице автомобиля
+        // но это тоже, я считаю, неправильно, так-как клик по кнопке "добавить в избранное" не подразумевает
+        // переход на карточку автомобиля.
+
+        // Единственное возможное рабочее решение, это найти все элементы кнопок "добавить в избранное", которые
+        // не добавлены в избранное, от них через xpath получить корневой элемент карточки, далее кликнуть на карточку
+        // и добавить в избранное со страницы карточки.
+        actions.moveToElement(car).pause(Duration.ofSeconds(2)).click().build().perform();
+    }
+
+    private WebElement getRandomNonFavoriteCar() {
+        List<WebElement> allNonFavoriteCars = getAllNonFavoriteCars();
+        Random random = new Random();
+        return allNonFavoriteCars.get(random.nextInt(allNonFavoriteCars.size()));
+    }
+
+    private List<WebElement> getAllNonFavoriteCars() {
+        return new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(ConstantMainPageSelectors.ADD_TO_FAVORITE_BUTTON_SELECTOR));
+
     }
 
 

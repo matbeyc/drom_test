@@ -19,18 +19,6 @@ public class CarCard extends BasePage {
     }
 
 
-    public void addCarToFavorite() {
-        baseElement.findElement(ConstantCarCardElementSelectors.ADD_TO_FAVORITE_BUTTON_SELECTOR).click();
-    }
-
-    public Boolean isCarInFavorite() {
-        List<WebElement> mileageElements = baseElement.findElements(ConstantCarCardElementSelectors.ADD_TO_FAVORITE_BUTTON_SELECTOR);
-        if (!mileageElements.isEmpty()) {
-            return Boolean.FALSE;
-        }
-        return Boolean.TRUE;
-    }
-
     public Boolean isCarSold() {
         String[] cssValues;
         WebElement carCardTitleElement = baseElement.findElement(ConstantCarCardElementSelectors.TITLE_GENERAL_SELECTOR);
