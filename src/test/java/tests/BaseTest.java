@@ -11,8 +11,8 @@ import pages.BasePage;
 
 import java.time.Duration;
 
-abstract public class BaseTest {
-    protected WebDriver driver;
+public class BaseTest {
+    public WebDriver driver;
 
     @BeforeEach
     public void setUp() {
@@ -23,8 +23,8 @@ abstract public class BaseTest {
         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         BasePage.setDriver(driver);
     }
 

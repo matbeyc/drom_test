@@ -27,5 +27,8 @@ public class FilterTest extends BaseTest {
         mainPage.allCarsShouldBeMoreOrEqualThan(2007);
         mainPage.allCarsShouldHaveMileage();
         mainPage.changePaginationPage("2");
+        mainPage.allCarsShouldNotBeSold();
+        mainPage.allCarsShouldBeMoreOrEqualThan(2007);
+        mainPage.allCarsShouldHaveMileage();
     }
 }
