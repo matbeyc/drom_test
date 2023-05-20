@@ -11,6 +11,6 @@ public class MostSoldMarksTest extends BaseMobileTest {
         MainPage mainPage = new MainPage();
         mainPage.open();
         FilterElement filterElement = mainPage.getFilterElement();
-        filterElement.displayTopSoldMark(20);
+        filterElement.displayTopSoldMarks(20);
     }
 }

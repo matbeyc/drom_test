@@ -2,22 +2,7 @@ package utils;
 
 import java.util.Objects;
 
-public class Mark implements Comparable<Mark> {
-    private final String name;
-    private final Integer amount;
-
-    public String getName() {
-        return name;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public Mark(String name, Integer amount) {
-        this.name = name;
-        this.amount = amount;
-    }
+public record Mark(String name, Integer amount) implements Comparable<Mark> {
 
 
     @Override
@@ -34,12 +19,4 @@ public class Mark implements Comparable<Mark> {
         return Objects.equals(mark.name, name);
     }
 
-    @Override
-    public int hashCode() {
-        int result = 17;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + amount;
-        result = 31 * result + name.hashCode();
-        return result;
-    }
 }

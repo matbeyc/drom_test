@@ -16,15 +16,28 @@ public class MarkList {
         this.markList = create(markElementList);
     }
 
-    public void display(Integer topBorder) {
+    public void display() {
         System.out.format("| %-22s | %-22s | %n", "Фирма", "Количество объявлений");
-        for (int i = 0; i < topBorder; i++) {
-            System.out.format("| %-22s | %-22s | %n", markList.get(i).getName(), markList.get(i).getAmount());
+        for (Mark mark : markList) {
+            System.out.format("| %-22s | %-22s | %n", mark.name(), mark.amount());
+        }
+    }
+
+    public void display(Integer amountOfMarks) {
+        sortDesc();
+        System.out.format("| %-22s | %-22s | %n", "Фирма", "Количество объявлений");
+        for (int i = 0; i < amountOfMarks; i++) {
+            System.out.format("| %-22s | %-22s | %n", markList.get(i).name(), markList.get(i).amount());
         }
     }
 
     public void sortDesc() {
+
         markList.sort(Collections.reverseOrder());
+    }
+
+    public void sort() {
+        Collections.sort(markList);
     }
 
 
