@@ -2,20 +2,36 @@ package utils;
 
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MarkList {
-    List<Mark> markList = new ArrayList<>();
+
+
+    private List<Mark> markList;
+
 
     public MarkList(List<WebElement> markElementList) {
-        this.markList = createMarkList(markElementList);
+        this.markList = create(markElementList);
     }
 
-    private List<Mark> createMarkList(List<WebElement> allMarkElements) {
+    public void display() {
+        System.out.format("| %-22s | %-22s | %n", "Фирма", "Количество объявлений");
+        for (Mark mark : markList) {
+            System.out.format("| %-22s | %-22s | %n", mark.getName(), mark.getAmount());
+        }
+    }
+
+    public void sortDesc() {
+        markList.sort(Collections.reverseOrder());
+    }
+
+    public void deleteDuplicates() {
+        markList = markList.stream().distinct().toList();
+    }
+
+    private List<Mark> create(List<WebElement> allMarkElements) {
         List<Mark> markList = new ArrayList<>();
         for (WebElement markElement : allMarkElements) {
             Integer amount = extractAmountOfSoldMarks(markElement);
@@ -24,7 +40,6 @@ public class MarkList {
         }
         return markList;
     }
-
     private String extractMarkName(WebElement mark) {
         Pattern regex = Pattern.compile("([а-яА-Яa-zA-Z-]+)");
         Matcher regexMatcher = regex.matcher(mark.getText());
