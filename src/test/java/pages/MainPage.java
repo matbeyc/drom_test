@@ -2,6 +2,7 @@ package pages;
 
 import config.ReadEnvConfig;
 import elements.CarCard;
+import elements.FilterElement;
 import elements.Header;
 import helpers.Waits;
 import helpers.XpathGenerator;
@@ -21,9 +22,14 @@ public class MainPage extends BasePage {
 
 
     private final Header headerElement = new Header();
+    private final FilterElement filter = new FilterElement();
 
     public Header getHeaderElement() {
         return headerElement;
+    }
+
+    public FilterElement getFilterElement() {
+        return filter;
     }
 
 

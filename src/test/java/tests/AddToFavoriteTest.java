@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 import pages.AuthPage;
 import pages.CarPage;
 import pages.MainPage;
+import tests.baseTests.BaseWebTest;
 
-public class AddToFavoriteTest extends BaseTest {
+public class AddToFavoriteTest extends BaseWebTest {
 
     @Test
     public void addToFavoriteTest() {

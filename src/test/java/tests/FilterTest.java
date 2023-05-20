@@ -4,12 +4,13 @@ import helpers.CarsFilterUrlParams;
 import helpers.CarsFilterUrlParamsBuilder;
 import org.junit.jupiter.api.Test;
 import pages.MainPage;
+import tests.baseTests.BaseWebTest;
 
 
-public class FilterTest extends BaseTest {
+public class FilterTest extends BaseWebTest {
 
     @Test
-    public void openMainPage() {
+    public void filterTest(){
 
         CarsFilterUrlParamsBuilder carsFilterUrlBuilder = new CarsFilterUrlParamsBuilder();
         CarsFilterUrlParams carsFilterUrlParams = carsFilterUrlBuilder
