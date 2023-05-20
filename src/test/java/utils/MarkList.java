@@ -9,17 +9,17 @@ import java.util.regex.Pattern;
 public class MarkList {
 
 
-    private List<Mark> markList;
+    private final List<Mark> markList;
 
 
     public MarkList(List<WebElement> markElementList) {
         this.markList = create(markElementList);
     }
 
-    public void display() {
+    public void display(Integer topBorder) {
         System.out.format("| %-22s | %-22s | %n", "Фирма", "Количество объявлений");
-        for (Mark mark : markList) {
-            System.out.format("| %-22s | %-22s | %n", mark.getName(), mark.getAmount());
+        for (int i = 0; i < topBorder; i++) {
+            System.out.format("| %-22s | %-22s | %n", markList.get(i).getName(), markList.get(i).getAmount());
         }
     }
 
@@ -27,19 +27,23 @@ public class MarkList {
         markList.sort(Collections.reverseOrder());
     }
 
-    public void deleteDuplicates() {
-        markList = markList.stream().distinct().toList();
-    }
 
     private List<Mark> create(List<WebElement> allMarkElements) {
+        Set<Mark> markSet = new HashSet<>();
         List<Mark> markList = new ArrayList<>();
         for (WebElement markElement : allMarkElements) {
             Integer amount = extractAmountOfSoldMarks(markElement);
             String name = extractMarkName(markElement);
-            markList.add(new Mark(name, amount));
+            Mark mark = new Mark(name, amount);
+            if (!markSet.contains(mark)) {
+                markList.add(mark);
+            }
+            markSet.add(mark);
         }
         return markList;
     }
+
+
     private String extractMarkName(WebElement mark) {
         Pattern regex = Pattern.compile("([а-яА-Яa-zA-Z-]+)");
         Matcher regexMatcher = regex.matcher(mark.getText());

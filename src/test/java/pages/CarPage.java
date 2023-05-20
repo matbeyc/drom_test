@@ -18,8 +18,8 @@ public class CarPage extends BasePage {
     public void checkSuccessPopupText() {
         WebElement successPopup = new Waits(driver).presenceOfElementLocatedBy(ConstantCarPageSelectors.SUCCESS_POPUP);
         System.out.println(successPopup.getText());
-        Assertions.assertEquals("РћР±СЉСЏРІР»РµРЅРёРµ РґРѕР±Р°РІР»РµРЅРѕ РІ РёР·Р±СЂР°РЅРЅРѕРµ.\n" +
-                "Р’С‹ РїРѕР»СѓС‡РёС‚Рµ СѓРІРµРґРѕРјР»РµРЅРёРµ РїСЂРё РёР·РјРµРЅРµРЅРёРё С†РµРЅС‹.", successPopup.getText());
+        Assertions.assertEquals("Объявление добавлено в избранное.\n" +
+                "Вы получите уведомление при изменении цены.", successPopup.getText());
     }
 
 

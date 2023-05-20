@@ -11,11 +11,10 @@ import java.util.*;
 public class FilterElement extends BasePage {
 
 
-    public void displayTopSoldMark() {
+    public void displayTopSoldMark(Integer topBorder) {
         MarkList markList = new MarkList(getAllMarkElements());
         markList.sortDesc();
-        markList.deleteDuplicates();
-        markList.display();
+        markList.display(topBorder);
     }
 
     private List<WebElement> getAllMarkElements() {
