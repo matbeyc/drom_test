@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 import java.time.Duration;
 import java.util.List;
 
@@ -29,4 +28,10 @@ public class Waits {
         return new WebDriverWait(driver, Duration.ofSeconds(ReadBrowserConfig.getExpectedWait()))
                 .until(ExpectedConditions.presenceOfElementLocated(by));
     }
+
+    public Boolean textToBePresentInElementLocated(By by, String str) {
+        return new WebDriverWait(driver, Duration.ofSeconds(ReadBrowserConfig.getExpectedWait()))
+                .until(ExpectedConditions.textToBePresentInElementLocated(by, str));
+    }
+
 }

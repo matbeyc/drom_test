@@ -1,4 +1,4 @@
-package utils;
+package pages.elements.utils.filter;
 
 import java.util.Objects;
 

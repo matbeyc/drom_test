@@ -1,6 +1,6 @@
 package tests;
 import config.ReadEnvConfig;
-import elements.Header;
+import pages.elements.Header;
 import org.junit.jupiter.api.Test;
 import pages.AuthPage;
 import pages.CarPage;

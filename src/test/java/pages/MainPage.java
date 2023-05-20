@@ -1,17 +1,17 @@
 package pages;
 
 import config.ReadEnvConfig;
-import elements.CarCard;
-import elements.FilterElement;
-import elements.Header;
+import pages.elements.CarCard;
+import pages.elements.FilterElement;
+import pages.elements.Header;
 import helpers.Waits;
 import helpers.XpathGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import selectors.CarCardSelectors.DynamicCarCardSelectors;
-import selectors.MainPageSelectors.ConstantMainPageSelectors;
-import selectors.MainPageSelectors.DynamicMainPageSelectors;
+import pages.selectors.CarCardSelectors.DynamicCarCardSelectors;
+import pages.selectors.MainPageSelectors.ConstantMainPageSelectors;
+import pages.selectors.MainPageSelectors.DynamicMainPageSelectors;
 
 import java.util.ArrayList;
 import java.util.List;

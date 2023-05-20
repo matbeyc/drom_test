@@ -1,4 +1,4 @@
-package utils;
+package pages.elements.utils.filter;
 
 import org.openqa.selenium.WebElement;
 

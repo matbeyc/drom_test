@@ -2,8 +2,6 @@ plugins {
     id 'java'
     id 'io.qameta.allure' version '2.11.2'
 }
-apply plugin: 'java'
-
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -12,25 +10,34 @@ repositories {
     mavenCentral()
 }
 
+def versions = [
+        junitJupiterApi   : '5.9.3',
+        junitJupiterEngine: '5.9.3',
+        selenium          : '4.5.0',
+        seleniumHttpClient: '4.5.0',
+        webDriverManager  : '5.3.2',
+        typesafe          : '1.4.2'
+]
+
+def libs = [
+        junitJupiterApi   : "org.junit.jupiter:junit-jupiter-api:$versions.junitJupiterApi",
+        junitJupiterEngine: "org.junit.jupiter:junit-jupiter-engine:$versions.junitJupiterEngine",
+        selenium          : "org.seleniumhq.selenium:selenium-java:$versions.selenium",
+        seleniumHttpClient: "org.seleniumhq.selenium:selenium-http-jdk-client:$versions.seleniumHttpClient",
+        webDriverManager  : "io.github.bonigarcia:webdrivermanager:$versions.webDriverManager",
+        typesafe          : "com.typesafe:config:$versions.typesafe"
+]
+
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.5.0'
-    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.3.2'
-    implementation group: 'org.seleniumhq.selenium', name: 'selenium-http-jdk-client', version: '4.5.0'
-    implementation group: 'com.typesafe', name: 'config', version: '1.4.2'
-    implementation 'com.typesafe:config:1.4.2'
-    implementation group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.21.0'
-    testImplementation group: 'io.qameta.allure', name: 'allure-junit5', version: '2.21.0'
-    implementation group: 'io.qameta.allure', name: 'allure-rest-assured', version: '2.21.0'
-    runtimeOnly group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.19'
-    implementation group: 'io.qameta.allure', name: 'allure-commandline', version: '2.21.0', ext: 'pom'
+    testImplementation libs.junitJupiterApi
+    testImplementation libs.junitJupiterEngine
+    testImplementation libs.selenium
+    testImplementation libs.seleniumHttpClient
+    testImplementation libs.webDriverManager
+    testImplementation libs.typesafe
 }
 
-
 test {
-    compileJava.options.encoding = 'windows-1251'
-    compileTestJava.options.encoding = 'windows-1251'
     systemProperty 'env', project.hasProperty('env') ? project.env : 'prod'
     useJUnitPlatform()
 }

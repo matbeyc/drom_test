@@ -1,10 +1,10 @@
-package elements;
+package pages.elements;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
-import selectors.FilterSelectors.ConstantFilterSelectors;
-import utils.MarkList;
+import pages.selectors.FilterSelectors.ConstantFilterSelectors;
+import pages.elements.utils.filter.MarkList;
 
 import java.util.*;
 

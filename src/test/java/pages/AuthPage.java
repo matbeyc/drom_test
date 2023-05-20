@@ -1,7 +1,7 @@
 package pages;
 
 import org.openqa.selenium.WebElement;
-import selectors.AuthPageSelectors.ConstantAuthPageSelectors;
+import pages.selectors.AuthPageSelectors.ConstantAuthPageSelectors;
 
 public class AuthPage extends BasePage {
 

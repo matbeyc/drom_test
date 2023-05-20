@@ -1,7 +1,7 @@
-package elements;
+package pages.elements;
 import org.openqa.selenium.WebElement;
 import pages.BasePage;
-import selectors.CarCardSelectors.ConstantCarCardSelectors;
+import pages.selectors.CarCardSelectors.ConstantCarCardSelectors;
 import java.util.List;
 import java.util.Objects;
 

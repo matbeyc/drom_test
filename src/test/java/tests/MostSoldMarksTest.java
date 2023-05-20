@@ -1,5 +1,5 @@
 package tests;
-import elements.FilterElement;
+import pages.elements.FilterElement;
 import org.junit.jupiter.api.Test;
 import pages.MainPage;
 import tests.baseTests.BaseMobileTest;

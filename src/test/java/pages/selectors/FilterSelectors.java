@@ -1,4 +1,4 @@
-package selectors;
+package pages.selectors;
 
 import org.openqa.selenium.By;
 

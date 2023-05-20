@@ -1,7 +1,7 @@
-package elements;
+package pages.elements;
 import org.openqa.selenium.WebElement;
 import pages.BasePage;
-import selectors.HeaderSelectors.ConstantHeaderElementSelectors;
+import pages.selectors.HeaderSelectors.ConstantHeaderElementSelectors;
 
 public class Header extends BasePage {
 
